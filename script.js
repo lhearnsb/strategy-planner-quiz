@@ -56,11 +56,11 @@ document.getElementById('quizForm').addEventListener('submit', function(e) {
     orgDesc = 'You’re scrappy, responsive, and always ready to adapt. When challenges pop up, your team finds a way—but without clear systems, it’s hard to sustain progress.';
   }
 
-  // Hide the quiz form
+  // Hide the quiz form (including the Submit button, title, and subtitle)
   document.getElementById('quizForm').style.display = 'none';
-
-  // Hide the Next/Submit button
-  document.getElementById('nextBtn').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';  // Hide quiz title
+  document.querySelector('p.quiz-hero-subtitle').style.display = 'none';  // Hide quiz subtitle
+  document.getElementById('nextBtn').style.display = 'none';  // Hide the Submit button
 
   // Show the result
   document.getElementById('result').style.display = 'block';
@@ -80,7 +80,7 @@ document.getElementById('emailCaptureForm').addEventListener('submit', function(
 
   const email = e.target.email.value;
 
-  // Send the email and other data to Google Apps Script or another service
+  // You would send the email and other data to Google Apps Script or another service
   // For now, just simulate success by showing the thank you page
 
   document.getElementById('emailForm').style.display = 'none';  // Hide the email form
