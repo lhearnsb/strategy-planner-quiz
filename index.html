@@ -229,42 +229,8 @@
     <button id="downloadBtn">Download My Strategy Snapshot</button>
   </div>
 
-  <script>
-    const steps = document.querySelectorAll('.step');
-    let currentStep = 0;
-    const nextBtn = document.getElementById('nextBtn');
+<script src="script.js"></script>
 
-    nextBtn.addEventListener('click', () => {
-      const currentInputs = steps[currentStep].querySelectorAll('input[type="radio"]');
-      const oneChecked = Array.from(currentInputs).some(input => input.checked);
-
-      if (!oneChecked) {
-        alert("Please select an answer.");
-        return;
-      }
-
-      steps[currentStep].classList.remove('active');
-      currentStep++;
-      steps[currentStep].classList.add('active');
-
-      if (currentStep === steps.length - 1) {
-        nextBtn.textContent = "Submit";
-      }
-    });
-
-    // Handle form submission and org type result
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Calculate scores and org type here
-      let orgType = "Mission Mover";  // Example value, replace with logic
-      document.getElementById('orgType').textContent = orgType;
-      document.getElementById('orgDesc').textContent = "Description of " + orgType;
-
-      document.getElementById('quizForm').style.display = 'none';
-      document.getElementById('result').style.display = 'block';
-    });
-  </script>
 
 </body>
 </html>
