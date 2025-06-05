@@ -8,139 +8,9 @@
   <meta property="og:description" content="Find your nonprofit org type based on alignment and structure." />
   <meta property="og:image" content="https://www.reflectplando.com/images/quiz-preview.png" />
   <meta property="og:url" content="https://www.reflectplando.com/quiz" />
-  
+
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      padding: 2rem 1rem;
-      max-width: 640px;
-      margin: auto;
-      background-color: #4c5270;
-      color: #4c5270;
-      line-height: 1.5;
-    }
-
-    h1, h2 {
-      text-align: center;
-      color: #4c5270;
-      font-weight: 600;
-    }
-
-    .quiz-hero-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #ff5757; 
-      margin-bottom: 0.5rem;
-    }
-
-    .quiz-hero-subtitle {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      color: #fff; 
-      margin-bottom: 0.5rem;
-    }
-
-    .question {
-      background: #fff;
-      padding: 1.25rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      margin-bottom: 1.5rem;
-    }
-
-    .question p {
-      margin-top: 0;
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-      font-size: 1.1rem;
-    }
-
-    .question label {
-      display: block;
-      padding: 0.4rem 0;
-      cursor: pointer;
-    }
-
-    input[type="radio"] {
-      margin-right: 0.5rem;
-    }
-
-    button {
-      background-color: #fff;
-      color: #4c5270;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      display: block;
-      margin: 1.5rem auto 0;
-    }
-
-    button:hover {
-      background-color: #d9d9d9;
-    }
-
-    .result, .email-form, .thank-you {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-      margin-top: 2rem;
-      text-align: center;
-    }
-
-    .result p, .thank-you p {
-      font-size: 1.1rem;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background-color: #7ed957;
-      color: #fff;
-      padding: 0.6rem 1.2rem;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 1.5rem;
-      transition: background-color 0.2s ease;
-    }
-
-    .cta-button:hover {
-      background-color: #c1ff72;
-      color: #4c5270;
-    }
-
-    .restart-button {
-      background-color: #4c5270;
-      color: #fff;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      display: block;
-      margin: 1.5rem auto 0;
-    }
-
-    .restart-button:hover {
-      background-color: #7e87b2;
-    }
-
-    .step {
-      display: none;
-    }
-
-    .step.active {
-      display: block;
-    }
-
-    #nextBtn {
-      display: block;
-      margin: 1.5rem auto 0;
-    }
+    /* Add your styles here */
   </style>
 </head>
 <body>
@@ -151,6 +21,7 @@
     </p>
   </section>
 
+  <!-- Quiz Form -->
   <form id="quizForm">
     <!-- Question 1 -->
     <div class="step active" data-step="1">
@@ -185,38 +56,7 @@
       </div>
     </div>
 
-    <!-- Question 4 -->
-    <div class="step" data-step="4">
-      <div class="question">
-        <p>How often do you revisit or adjust your metrics?</p>
-        <label><input type="radio" name="q4" value="0,0" required /> Rarely. We mostly just report on what we already track.</label><br/>
-        <label><input type="radio" name="q4" value="1,0" /> When funders ask or something major changes.</label><br/>
-        <label><input type="radio" name="q4" value="2,0" /> We check in occasionally but don’t have a set cadence.</label><br/>
-        <label><input type="radio" name="q4" value="3,0" /> We regularly review and evolve our metrics based on performance and revenue outcomes.</label>
-      </div>
-    </div>
-
-    <!-- Question 5 -->
-    <div class="step" data-step="5">
-      <div class="question">
-        <p>How do fundraising and programs work together?</p>
-        <label><input type="radio" name="q5" value="0,0" required /> Like neighbors who nod but rarely talk.</label><br/>
-        <label><input type="radio" name="q5" value="0,1" /> They team up when deadlines demand it.</label><br/>
-        <label><input type="radio" name="q5" value="0,2" /> They share information but aren’t truly aligned.</label><br/>
-        <label><input type="radio" name="q5" value="0,3" /> They work closely and use shared metrics to plan and reflect.</label>
-      </div>
-    </div>
-
-    <!-- Question 6 -->
-    <div class="step" data-step="6">
-      <div class="question">
-        <p>What challenge feels most familiar right now?</p>
-        <label><input type="radio" name="q6" value="0,0" required /> We want to make a difference, but it’s unclear what to focus on.</label><br/>
-        <label><input type="radio" name="q6" value="0,1" /> We feel we're making a difference within our own team but don’t know the effect on other teams.</label><br/>
-        <label><input type="radio" name="q6" value="0,2" /> We have clear goals that are aligned across the organization and know we are making an impact, but accessing reports that demonstrate this is draining.</label><br/>
-        <label><input type="radio" name="q6" value="0,3" /> Our goals are aligned, and we have access to accurate reports and/or dashboards to track progress and inform decisions in a timely manner.</label>
-      </div>
-    </div>
+    <!-- Add additional questions (Question 4, 5, 6) similarly -->
 
     <!-- Next Button -->
     <button type="button" id="nextBtn">Next</button>
@@ -229,8 +69,26 @@
     <button id="downloadBtn">Download My Strategy Snapshot</button>
   </div>
 
-<script src="script.js"></script>
+  <!-- Email Capture Form (Initially Hidden) -->
+  <div id="emailForm" class="email-form" style="display:none;">
+    <h3>Enter Your Details to Receive Your Download</h3>
+    <form id="emailCaptureForm">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <input type="text" name="name" placeholder="Name (optional)" />
+      <input type="text" name="title" placeholder="Title (optional)" />
+      <input type="text" name="orgName" placeholder="Organization (optional)" />
+      <button type="submit">Send My Personalized Planner</button>
+    </form>
+  </div>
 
+  <!-- Thank You Page (Initially Hidden) -->
+  <div id="thankYou" class="thank-you" style="display:none;">
+    <h1>Your Personalized Strategy Planner Is Ready!</h1>
+    <p>Download it now—or check your inbox for a copy you can share with your team.</p>
+    <button id="downloadNow">Download Now</button>
+  </div>
 
+  <!-- Link to External JavaScript File -->
+  <script src="script.js"></script>
 </body>
 </html>

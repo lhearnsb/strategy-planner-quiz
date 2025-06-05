@@ -56,7 +56,7 @@ document.getElementById('quizForm').addEventListener('submit', function(e) {
     orgDesc = 'You’re scrappy, responsive, and always ready to adapt. When challenges pop up, your team finds a way—but without clear systems, it’s hard to sustain progress.';
   }
 
-  // Hide the quiz form (including the Submit button, title, and subtitle)
+  // Hide the quiz form
   document.getElementById('quizForm').style.display = 'none';
   document.querySelector('h1').style.display = 'none';  // Hide quiz title
   document.querySelector('p.quiz-hero-subtitle').style.display = 'none';  // Hide quiz subtitle
