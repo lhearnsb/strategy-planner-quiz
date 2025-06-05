@@ -8,7 +8,7 @@
   <meta property="og:description" content="Find your nonprofit org type based on alignment and structure." />
   <meta property="og:image" content="https://www.reflectplando.com/images/quiz-preview.png" />
   <meta property="og:url" content="https://www.reflectplando.com/quiz" />
- 
+  
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -141,13 +141,18 @@
       display: block;
       margin: 1.5rem auto 0;
     }
-
   </style>
 </head>
 <body>
+  <section style="text-align: center; padding: 2rem 1rem; max-width: 600px; margin: auto;">
+    <h1 class="quiz-hero-title">Is your organization’s decision-making style working for or against you?</h1>
+    <p class="quiz-hero-subtitle">
+      Take this quick quiz to find out—and unlock actionable steps to impress the board and empower your team.
+    </p>
+  </section>
 
-  <!-- Quiz Form -->
   <form id="quizForm">
+    <!-- Question 1 -->
     <div class="question">
       <p>What best describes how your team sets goals?</p>
       <label><input type="radio" name="q1" value="0,0" required /> We’re guided by values but don’t always have clear targets.</label><br/>
@@ -156,6 +161,52 @@
       <label><input type="radio" name="q1" value="0,3" /> We set shared goals across departments with regular reviews.</label>
     </div>
 
+    <!-- Question 2 -->
+    <div class="question">
+      <p>How accessible is your data to people across your team?</p>
+      <label><input type="radio" name="q2" value="0,0" required /> Not accessible.</label><br/>
+      <label><input type="radio" name="q2" value="1,0" /> Only select leaders have access.</label><br/>
+      <label><input type="radio" name="q2" value="2,0" /> It’s technically accessible, but underused.</label><br/>
+      <label><input type="radio" name="q2" value="3,0" /> Easy to access and actively used in decision-making.</label>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question">
+      <p>What’s your relationship with data?</p>
+      <label><input type="radio" name="q3" value="0,0" required /> We collect data for funders, but it doesn’t inform decisions.</label><br/>
+      <label><input type="radio" name="q3" value="1,0" /> We wish we had better data but aren’t sure where to start.</label><br/>
+      <label><input type="radio" name="q3" value="2,0" /> We have plenty of data, but it’s not always actionable.</label><br/>
+      <label><input type="radio" name="q3" value="3,0" /> Integrated data from multiple teams/sources helps us make decisions and tell our story.</label>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question">
+      <p>How often do you revisit or adjust your metrics?</p>
+      <label><input type="radio" name="q4" value="0,0" required /> Rarely. We mostly just report on what we already track.</label><br/>
+      <label><input type="radio" name="q4" value="1,0" /> When funders ask or something major changes.</label><br/>
+      <label><input type="radio" name="q4" value="2,0" /> We check in occasionally but don’t have a set cadence.</label><br/>
+      <label><input type="radio" name="q4" value="3,0" /> We regularly review and evolve our metrics based on performance and revenue outcomes.</label>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question">
+      <p>How do fundraising and programs work together?</p>
+      <label><input type="radio" name="q5" value="0,0" required /> Like neighbors who nod but rarely talk.</label><br/>
+      <label><input type="radio" name="q5" value="0,1" /> They team up when deadlines demand it.</label><br/>
+      <label><input type="radio" name="q5" value="0,2" /> They share information but aren’t truly aligned.</label><br/>
+      <label><input type="radio" name="q5" value="0,3" /> They work closely and use shared metrics to plan and reflect.</label>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question">
+      <p>What challenge feels most familiar right now?</p>
+      <label><input type="radio" name="q6" value="0,0" required /> We want to make a difference, but it’s unclear what to focus on.</label><br/>
+      <label><input type="radio" name="q6" value="0,1" /> We feel we're making a difference within our own team but don’t know the effect on other teams.</label><br/>
+      <label><input type="radio" name="q6" value="0,2" /> We have clear goals that are aligned across the organization and know we are making an impact, but accessing reports that demonstrate this is draining.</label><br/>
+      <label><input type="radio" name="q6" value="0,3" /> Our goals are aligned, and we have access to accurate reports and/or dashboards to track progress and inform decisions in a timely manner.</label>
+    </div>
+
+    <!-- Submit Button -->
     <button type="submit">Submit My Quiz</button>
   </form>
 
@@ -189,13 +240,30 @@
     document.getElementById('quizForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
-      const orgType = "Mission Mover";  // example result
-      const orgDesc = "You turn alignment into action. With clear goals...";  // example result
+      // Calculate structure and alignment based on answers
+      let structure = 0, alignment = 0;
       
+      const formData = new FormData(this);
+      for (let value of formData.values()) {
+        let [s, a] = value.split(',').map(Number);
+        structure += s;
+        alignment += a;
+      }
+
+      // Determine org type
+      let orgType = '';
+      if (structure >= 7 && alignment >= 7) orgType = 'Mission Mover';
+      else if (structure <= 6 && alignment >= 7) orgType = 'Insight Seeker';
+      else if (structure <= 6 && alignment <= 6) orgType = 'Heart-Led Hustler';
+      else if (structure >= 7 && alignment <= 6) orgType = 'Resourceful Reactor';
+
+      // Show the result
       document.getElementById('quizForm').style.display = 'none';
       document.getElementById('result').style.display = 'block';
       document.getElementById('orgType').textContent = orgType;
-      document.getElementById('orgDesc').textContent = orgDesc;
+      document.getElementById('orgDesc').textContent = "Description of " + orgType;
+
+      // Store the results to use later for email capture
     });
 
     // Step 2: Handle "Download My Strategy Snapshot" button click
@@ -209,13 +277,12 @@
       e.preventDefault();
       
       const email = e.target.email.value;
-      
-      // Send form data to Google Sheets or process as needed (Google Apps Script)
-      
+      // Process email and generate the shareable PDF (use Google Apps Script)
+
+      // Show the Thank You page
       document.getElementById('emailForm').style.display = 'none';
       document.getElementById('thankYou').style.display = 'block';
     });
   </script>
-
 </body>
 </html>
