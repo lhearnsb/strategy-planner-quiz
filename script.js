@@ -4,6 +4,8 @@ let currentStep = 0;
 const nextBtn = document.getElementById('nextBtn');
 
 nextBtn.addEventListener('click', () => {
+  console.log("Submit button clicked");
+
   const currentInputs = steps[currentStep].querySelectorAll('input[type="radio"]');
   const oneChecked = Array.from(currentInputs).some(input => input.checked);
 
@@ -21,6 +23,7 @@ nextBtn.addEventListener('click', () => {
     nextBtn.textContent = "Submit";
   }
 });
+
 
 // Handle form submission and org type result
 document.getElementById('quizForm').addEventListener('submit', function(e) {
