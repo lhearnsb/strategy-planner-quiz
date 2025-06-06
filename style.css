@@ -1,0 +1,131 @@
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  padding: 2rem 1rem;
+  max-width: 640px;
+  margin: auto;
+  background-color: #4c5270;
+  color: #4c5270;
+  line-height: 1.5;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #4c5270;
+  font-weight: 600;
+}
+
+.quiz-hero-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff5757;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-hero-subtitle {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.question {
+  background: #fff;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.question p {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.question label {
+  display: block;
+  padding: 0.4rem 0;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+button {
+  background-color: #fff;
+  color: #4c5270;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: block;
+  margin: 1.5rem auto 0;
+}
+
+button:hover {
+  background-color: #d9d9d9;
+}
+
+.result, .email-form, .thank-you {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.result p, .thank-you p {
+  font-size: 1.1rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #7ed957;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #c1ff72;
+  color: #4c5270;
+}
+
+.restart-button {
+  background-color: #4c5270;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: block;
+  margin: 1.5rem auto 0;
+}
+
+.restart-button:hover {
+  background-color: #7e87b2;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+#nextBtn {
+  display: block;
+  margin: 1.5rem auto 0;
+}
