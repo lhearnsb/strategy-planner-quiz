@@ -4,13 +4,19 @@ let currentStep = 0;
 const nextBtn = document.getElementById('nextBtn');
 
 nextBtn.addEventListener('click', () => {
-  console.log("Submit button clicked");
+  console.log("Next button clicked");
 
   const currentInputs = steps[currentStep].querySelectorAll('input[type="radio"]');
   const oneChecked = Array.from(currentInputs).some(input => input.checked);
 
   if (!oneChecked) {
     alert("Please select an answer.");
+    return;
+  }
+
+  // If we're on the last question, submit the form
+  if (currentStep === steps.length - 1) {
+    document.getElementById('quizForm').dispatchEvent(new Event('submit'));
     return;
   }
 
@@ -23,7 +29,6 @@ nextBtn.addEventListener('click', () => {
     nextBtn.textContent = "Submit";
   }
 });
-
 
 // Handle form submission and org type result
 document.getElementById('quizForm').addEventListener('submit', function(e) {
@@ -65,73 +70,84 @@ document.getElementById('quizForm').addEventListener('submit', function(e) {
   document.querySelector('p.quiz-hero-subtitle').style.display = 'none';
   document.getElementById('nextBtn').style.display = 'none';
 
-  // Show the result with two buttons
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('orgType').textContent = orgType;
-  document.getElementById('orgDesc').textContent = orgDesc;
+  // Show the result
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = 'block';
   
-  // Update the result section HTML to include both buttons
-  document.getElementById('result').innerHTML = `
-    <h2>Your Org Type: <span id="orgType">${orgType}</span></h2>
-    <p id="orgDesc">${orgDesc}</p>
-    <div class="result-buttons">
+  // Update the result content
+  const orgTypeSpan = document.getElementById('orgType');
+  const orgDescP = document.getElementById('orgDesc');
+  
+  if (orgTypeSpan) orgTypeSpan.textContent = orgType;
+  if (orgDescP) orgDescP.textContent = orgDesc;
+
+  // Add the buttons if they don't exist
+  if (!document.querySelector('.result-buttons')) {
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.className = 'result-buttons';
+    buttonsDiv.innerHTML = `
       <a href="/recommendations/${orgType.toLowerCase().replace(/\s+/g, '-')}" class="btn btn-secondary">See My Recommendations</a>
       <button id="downloadBtn" class="btn btn-primary">Get My Personal Strategy Planner</button>
+    `;
+    resultDiv.appendChild(buttonsDiv);
+
+    // Add event listener to the download button
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      resultDiv.style.display = 'none';
+      document.getElementById('emailForm').style.display = 'block';
+    });
+  }
+});
+
+// Initialize the email form HTML
+const emailForm = document.getElementById('emailForm');
+if (emailForm) {
+  emailForm.innerHTML = `
+    <h3>Unlock Your Personalized Strategy Planner</h3>
+    <p class="subhead">Based on your quiz results, this one-page guide helps you reflect, plan, and take action—on your own or with your team.</p>
+    
+    <div class="benefits">
+      <h4>What You'll Get:</h4>
+      <ul>
+        <li>🧠 A summary of your org type + quadrant placement</li>
+        <li>💬 Coaching-style prompts to spark reflection and discussion</li>
+        <li>🧭 Planning questions to align your team</li>
+        <li>🚀 Clear action steps to move your mission forward</li>
+      </ul>
     </div>
+
+    <form id="emailCaptureForm">
+      <input type="email" name="email" placeholder="📧 Email Address" required />
+      <input type="text" name="name" placeholder="👤 Name (optional)" />
+      <input type="text" name="orgName" placeholder="🏢 Organization Name (optional)" />
+      <input type="text" name="title" placeholder="🪪 Title/Role (optional)" />
+      <div class="checkbox-wrapper">
+        <input type="checkbox" id="newsletter" name="newsletter" />
+        <label for="newsletter">Keep me posted on new tools and trainings</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Send My Personalized Planner</button>
+      <p class="trust-message">We respect your time and inbox. No spam—just helpful tools.</p>
+    </form>
   `;
+}
 
-  // Reattach the download button event listener
-  document.getElementById('downloadBtn').addEventListener('click', function() {
-    document.getElementById('result').style.display = 'none';
-    document.getElementById('emailForm').style.display = 'block';
-  });
+// Handle Email Capture Form Submission
+document.addEventListener('submit', function(e) {
+  if (e.target.id === 'emailCaptureForm') {
+    e.preventDefault();
+    const email = e.target.email.value;
+
+    // You would send the email and other data to Google Apps Script or another service
+    // For now, just simulate success by showing the thank you page
+    document.getElementById('emailForm').style.display = 'none';
+    document.getElementById('thankYou').style.display = 'block';
+  }
 });
 
-// Update the email capture form HTML
-document.getElementById('emailForm').innerHTML = `
-  <h3>Unlock Your Personalized Strategy Planner</h3>
-  <p class="subhead">Based on your quiz results, this one-page guide helps you reflect, plan, and take action—on your own or with your team.</p>
-  
-  <div class="benefits">
-    <h4>What You'll Get:</h4>
-    <ul>
-      <li>🧠 A summary of your org type + quadrant placement</li>
-      <li>💬 Coaching-style prompts to spark reflection and discussion</li>
-      <li>🧭 Planning questions to align your team</li>
-      <li>🚀 Clear action steps to move your mission forward</li>
-    </ul>
-  </div>
-
-  <form id="emailCaptureForm">
-    <input type="email" name="email" placeholder="📧 Email Address" required />
-    <input type="text" name="name" placeholder="👤 Name (optional)" />
-    <input type="text" name="orgName" placeholder="🏢 Organization Name (optional)" />
-    <input type="text" name="title" placeholder="🪪 Title/Role (optional)" />
-    <div class="checkbox-wrapper">
-      <input type="checkbox" id="newsletter" name="newsletter" />
-      <label for="newsletter">Keep me posted on new tools and trainings</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Send My Personalized Planner</button>
-    <p class="trust-message">We respect your time and inbox. No spam—just helpful tools.</p>
-  </form>
-`;
-
-// Step 2: Handle Email Capture Form Submission
-document.getElementById('emailCaptureForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  const email = e.target.email.value;
-
-  // You would send the email and other data to Google Apps Script or another service
-  // For now, just simulate success by showing the thank you page
-
-  document.getElementById('emailForm').style.display = 'none';  // Hide the email form
-  document.getElementById('thankYou').style.display = 'block';  // Show the thank you page
-});
-
-// Optional: Handle the "Download Now" Button
-document.getElementById('downloadNow').addEventListener('click', function() {
-  // Trigger the PDF generation or file download
-  // This could trigger a Google Apps Script to generate the shareable
-  alert("Your shareable is ready for download!");
+// Handle the "Download Now" Button
+document.addEventListener('click', function(e) {
+  if (e.target.id === 'downloadNow') {
+    // Trigger the PDF generation or file download
+    alert("Your shareable is ready for download!");
+  }
 });
