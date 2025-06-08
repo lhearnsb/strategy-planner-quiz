@@ -56,26 +56,65 @@ document.getElementById('quizForm').addEventListener('submit', function(e) {
     orgDesc = 'You lead with purpose, passion, and people in mind. Your mission inspires action—but without shared goals and structure, things can get chaotic.';
   } else if (structure >= 7 && alignment <= 6) {
     orgType = 'Resourceful Reactor';
-    orgDesc = 'You’re scrappy, responsive, and always ready to adapt. When challenges pop up, your team finds a way—but without clear systems, it’s hard to sustain progress.';
+    orgDesc = 'You're scrappy, responsive, and always ready to adapt. When challenges pop up, your team finds a way—but without clear systems, it's hard to sustain progress.';
   }
 
   // Hide the quiz form
   document.getElementById('quizForm').style.display = 'none';
-  document.querySelector('h1').style.display = 'none';  // Hide quiz title
-  document.querySelector('p.quiz-hero-subtitle').style.display = 'none';  // Hide quiz subtitle
-  document.getElementById('nextBtn').style.display = 'none';  // Hide the Submit button
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('p.quiz-hero-subtitle').style.display = 'none';
+  document.getElementById('nextBtn').style.display = 'none';
 
-  // Show the result
+  // Show the result with two buttons
   document.getElementById('result').style.display = 'block';
   document.getElementById('orgType').textContent = orgType;
   document.getElementById('orgDesc').textContent = orgDesc;
+  
+  // Update the result section HTML to include both buttons
+  document.getElementById('result').innerHTML = `
+    <h2>Your Org Type: <span id="orgType">${orgType}</span></h2>
+    <p id="orgDesc">${orgDesc}</p>
+    <div class="result-buttons">
+      <a href="/recommendations/${orgType.toLowerCase().replace(/\s+/g, '-')}" class="btn btn-secondary">See My Recommendations</a>
+      <button id="downloadBtn" class="btn btn-primary">Get My Personal Strategy Planner</button>
+    </div>
+  `;
 
-  // Show the "Download My Strategy Snapshot" button
+  // Reattach the download button event listener
   document.getElementById('downloadBtn').addEventListener('click', function() {
     document.getElementById('result').style.display = 'none';
-    document.getElementById('emailForm').style.display = 'block';  // Show email form
+    document.getElementById('emailForm').style.display = 'block';
   });
 });
+
+// Update the email capture form HTML
+document.getElementById('emailForm').innerHTML = `
+  <h3>Unlock Your Personalized Strategy Planner</h3>
+  <p class="subhead">Based on your quiz results, this one-page guide helps you reflect, plan, and take action—on your own or with your team.</p>
+  
+  <div class="benefits">
+    <h4>What You'll Get:</h4>
+    <ul>
+      <li>🧠 A summary of your org type + quadrant placement</li>
+      <li>💬 Coaching-style prompts to spark reflection and discussion</li>
+      <li>🧭 Planning questions to align your team</li>
+      <li>🚀 Clear action steps to move your mission forward</li>
+    </ul>
+  </div>
+
+  <form id="emailCaptureForm">
+    <input type="email" name="email" placeholder="📧 Email Address" required />
+    <input type="text" name="name" placeholder="👤 Name (optional)" />
+    <input type="text" name="orgName" placeholder="🏢 Organization Name (optional)" />
+    <input type="text" name="title" placeholder="🪪 Title/Role (optional)" />
+    <div class="checkbox-wrapper">
+      <input type="checkbox" id="newsletter" name="newsletter" />
+      <label for="newsletter">Keep me posted on new tools and trainings</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Send My Personalized Planner</button>
+    <p class="trust-message">We respect your time and inbox. No spam—just helpful tools.</p>
+  </form>
+`;
 
 // Step 2: Handle Email Capture Form Submission
 document.getElementById('emailCaptureForm').addEventListener('submit', function(e) {
