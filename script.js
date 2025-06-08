@@ -1,33 +1,47 @@
 // Handle Question Progression (One question per page)
-const steps = document.querySelectorAll('.step');
-let currentStep = 0;
-const nextBtn = document.getElementById('nextBtn');
+document.addEventListener('DOMContentLoaded', function() {
+  const steps = document.querySelectorAll('.step');
+  let currentStep = 0;
+  const nextBtn = document.getElementById('nextBtn');
 
-nextBtn.addEventListener('click', () => {
-  console.log("Next button clicked");
+  // Make sure only the first step is visible initially
+  steps.forEach((step, index) => {
+    if (index === 0) {
+      step.classList.add('active');
+    } else {
+      step.classList.remove('active');
+    }
+  });
 
-  const currentInputs = steps[currentStep].querySelectorAll('input[type="radio"]');
-  const oneChecked = Array.from(currentInputs).some(input => input.checked);
+  nextBtn.addEventListener('click', () => {
+    console.log("Next button clicked");
 
-  if (!oneChecked) {
-    alert("Please select an answer.");
-    return;
-  }
+    const currentInputs = steps[currentStep].querySelectorAll('input[type="radio"]');
+    const oneChecked = Array.from(currentInputs).some(input => input.checked);
 
-  // If we're on the last question, submit the form
-  if (currentStep === steps.length - 1) {
-    document.getElementById('quizForm').dispatchEvent(new Event('submit'));
-    return;
-  }
+    if (!oneChecked) {
+      alert("Please select an answer.");
+      return;
+    }
 
-  steps[currentStep].classList.remove('active');
-  currentStep++;
-  steps[currentStep].classList.add('active');
+    // If we're on the last question, submit the form
+    if (currentStep === steps.length - 1) {
+      document.getElementById('quizForm').dispatchEvent(new Event('submit'));
+      return;
+    }
 
-  // Change "Next" button to "Submit" on the last question
-  if (currentStep === steps.length - 1) {
-    nextBtn.textContent = "Submit";
-  }
+    // Hide current step
+    steps[currentStep].classList.remove('active');
+    
+    // Show next step
+    currentStep++;
+    steps[currentStep].classList.add('active');
+
+    // Change "Next" button to "Submit" on the last question
+    if (currentStep === steps.length - 1) {
+      nextBtn.textContent = "Submit";
+    }
+  });
 });
 
 // Handle form submission and org type result
